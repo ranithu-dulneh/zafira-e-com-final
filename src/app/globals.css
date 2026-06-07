@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-white: #ffffff;
+  --color-brand-cream: #fdfcf0;
+  --color-brand-charcoal: #1c1c1c;
+  --color-brand-slate: #2f2f2f;
+  --color-brand-gold: #d4af37;
+  --color-brand-gold-light: #f3e5ab;
+
+  --color-background: var(--color-brand-white);
+  --color-foreground: var(--color-brand-charcoal);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #1c1c1c;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  @apply antialiased selection:bg-brand-gold selection:text-white;
+}
+
+/* Base styles for a clean luxury look */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-medium tracking-tight text-brand-charcoal;
+}
+
+a {
+  @apply transition-colors duration-200 hover:text-brand-gold;
+}
