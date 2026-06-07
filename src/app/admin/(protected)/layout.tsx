@@ -1,8 +1,18 @@
 import React from "react";
 import Link from "next/link";
-import { LayoutDashboard, Package, ShoppingCart, Tag, MessageSquare, LogOut } from "lucide-react";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { Package, ShoppingCart, Tag, MessageSquare } from "lucide-react";
+import { LogoutButton } from "../LogoutButton";
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  const cookieStore = await cookies();
+  const isAuthenticated = cookieStore.get("admin_auth")?.value === "true";
+
+  if (!isAuthenticated) {
+    redirect("/admin");
+  }
+
   const navItems = [
     { href: "/admin/orders", label: "Orders Pipeline", icon: ShoppingCart },
     { href: "/admin/products", label: "Products & Categories", icon: Package },
@@ -33,10 +43,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </ul>
         </nav>
         <div className="p-4 border-t border-brand-slate/10">
-          <button className="flex items-center gap-3 w-full px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded transition-colors">
-            <LogOut className="w-4 h-4" />
-            Secure Logout
-          </button>
+          <LogoutButton />
         </div>
       </aside>
 
